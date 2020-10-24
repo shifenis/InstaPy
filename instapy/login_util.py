@@ -273,6 +273,14 @@ def login_user(
             "Issue with cookie for user {}. Creating " "new cookie...".format(username)
         )
 
+    try:
+        cookie_elem = browser.find_element_by_xpath("//button[text()='Accept']")
+    except:
+        cookie_elem = None
+
+    if cookie_elem is not None:
+        cookie_elem.click()
+
     # Check if the first div is 'Create an Account' or 'Log In'
     try:
         login_elem = browser.find_element_by_xpath(

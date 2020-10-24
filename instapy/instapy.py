@@ -64,6 +64,7 @@ from .util import get_cord_location
 from .util import get_bounding_box
 from .util import file_handling
 from .util import scroll_down
+from .util import get_relationship_counts
 from .unfollow_util import get_given_user_followers
 from .unfollow_util import get_given_user_following
 from .unfollow_util import unfollow
@@ -4266,6 +4267,19 @@ class InstaPy:
         )
         return grabbed_followers
 
+    def get_user_follower_counter(
+        self,
+        username: str = None
+    ):
+        """ Return the number of user's follower """
+
+        if username is None or not isinstance(username, str):
+            self.logger.warning("You have to pass the username to be able to get his followers!")
+            return self
+
+        return get_relationship_counts(self.browser, username, self.logger)[0]
+
+
     def grab_following(
         self,
         username: str = None,
@@ -4313,6 +4327,19 @@ class InstaPy:
             self.logfolder,
         )
         return grabbed_following
+
+    def get_user_following_counter(
+        self,
+        username: str = None
+    ):
+        """ Return the number of user's following """
+
+        if username is None or not isinstance(username, str):
+            self.logger.warning("You have to pass the username to be able to get his following!")
+            return self
+
+        return get_relationship_counts(self.browser, username, self.logger)[1]
+
 
     def pick_unfollowers(
         self,
